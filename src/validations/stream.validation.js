@@ -1,10 +1,12 @@
 import Joi from "joi";
 
-const genreValidation = {
+const streamValidation = {
 
     add: {
         body: Joi.object().keys({
-            name: Joi.string().required().min(2).max(20)
+            episode_id: Joi.string().required(),
+            user_id: Joi.string().required(),
+            time: Joi.string().required(),
         })
     },
 
@@ -18,11 +20,12 @@ const genreValidation = {
         param: Joi.object().keys({
             id: Joi.string().required()
         }),
-
         body: Joi.object().keys({
-            name: Joi.string().required().min(2).max(20)
+            episode_id: Joi.string().required(),
+            user_id: Joi.string().required(),
+            time: Joi.string().required(),
         })
     }
 }
 
-export default genreValidation
+export default streamValidation
