@@ -20,6 +20,14 @@ const streamServices = {
     
     deleteOne: async (id) => {
         return streamModel.deleteOne({ _id: id })
+    },
+
+    getAnEpisodeOfStreamByStreamId: async (stream_id) => {
+        return streamModel.find({ _id: stream_id }).populate("episode_id")
+    },
+
+    getUserOfStreamByStreamId: async (stream_id) => {
+        return streamModel.find({ _id: stream_id }).populate("user_id")
     }
 }
 

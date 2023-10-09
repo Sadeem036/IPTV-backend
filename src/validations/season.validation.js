@@ -22,9 +22,9 @@ const seasonValidation = {
         }),
 
         body: Joi.object().keys({
-            series_id: Joi.string().required(),
-            name: Joi.string().required().min(2).max(20),
-            description: Joi.string().required().max(1000)
+            series_id: Joi.string(),
+            name: Joi.string().min(2).max(20),
+            description: Joi.string().max(1000)
         })
     }
 }

@@ -2,17 +2,20 @@ import express from "express"
 import { validate } from "../middlewares/validate.js"
 import seriesValidation from "../validations/series.validation.js"
 import seriesController from "../controllers/series.controller.js"
+import { authenticate } from "../middlewares/authenticate.js"
 
 const seriesRouter = express.Router()
 
-seriesRouter.post("/", validate(seriesValidation.add), seriesController.add)
+seriesRouter.post("/", validate(seriesValidation.add), authenticate, seriesController.add)
 
-seriesRouter.get("/", seriesController.getAll)
+seriesRouter.get("/", authenticate, seriesController.getAll)
 
-seriesRouter.get("/:id", validate(seriesValidation.id), seriesController.getOne)
+seriesRouter.get("/:id", validate(seriesValidation.id), authenticate, seriesController.getOne)
 
-seriesRouter.patch("/:id", validate(seriesValidation.update), seriesController.updateOne)
+seriesRouter.patch("/:id", validate(seriesValidation.update), authenticate, seriesController.updateOne)
 
-seriesRouter.delete("/:id", validate(seriesValidation.id), seriesController.deleteOne)
+seriesRouter.delete("/:id", validate(seriesValidation.id), authenticate, seriesController.deleteOne)
+
+seriesRouter.get("/:id/seasons", validate(seriesValidation.id), authenticate, seriesController.getAllSeasonBySeriesId)
 
 export default seriesRouter

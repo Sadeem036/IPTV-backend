@@ -1,5 +1,6 @@
 import seasonValidation from "../validations/season.validation.js";
 import seasonModel from "../models/season.js"
+import episodeModel from "../models/episode.js";
 
 const seasonServices = {
 
@@ -21,6 +22,10 @@ const seasonServices = {
     
     deleteOne: async (id) => {
         return seasonModel.deleteOne({ _id: id })
+    },
+
+    getAllEpisodesBySeasonId: async (season_id) => {
+        return episodeModel.find({ season_id })
     }
 }
 

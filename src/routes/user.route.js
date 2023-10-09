@@ -20,4 +20,10 @@ userRoute.delete("/:id", validate(userValidation.id), userController.deleteOne)
 
 userRoute.delete("/delete", userController.delete)
 
+userRoute.get("/:id/streams", validate(userValidation.id), userController.getUserStreams)
+
+userRoute.get("/:id/streams/:streamId", validate(userValidation.id), userController.getStreamByUserIdAndStreamID)
+
+userRoute.delete("/:id/streams/:streamId", validate(userValidation.id), userController.deleteStreamByUserIdAndStreamId)
+
 export default userRoute

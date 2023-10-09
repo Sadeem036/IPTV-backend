@@ -61,6 +61,32 @@ const streamController = {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
         }
     },
+
+    getAnEpisodeOfStreamByStreamId: async (req, res) => {
+        try {
+            const data = await streamServices.getAnEpisodeOfStreamByStreamId(req.params.id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
+
+    getuserOfStreamByStreamId: async (req, res) => {
+        try {
+            const data = await streamServices.getUserOfStreamByStreamId(req.params.id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    }
 }
 
 export default streamController

@@ -20,8 +20,8 @@ const genreSeriesValidation = {
             id: Joi.string().required()
         }),
         body: Joi.object().keys({
-            genre_id: Joi.string().required(),
-            series_id: Joi.string().required(),
+            genre_id: Joi.string(),
+            series_id: Joi.string(),
         })
     }
 }

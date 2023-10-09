@@ -2,18 +2,23 @@ import express from "express"
 import { validate } from "../middlewares/validate.js"
 import streamValidation from "../validations/stream.validation.js"
 import streamController from "../controllers/stream.controller.js"
+import { authenticate } from "../middlewares/authenticate.js"
 
 
 const streamRouter = express.Router()
 
-streamRouter.post("/",validate(streamValidation.add), streamController.add)
+streamRouter.post("/",validate(streamValidation.add), authenticate, streamController.add)
 
-streamRouter.get("/", streamController.getAll)
+streamRouter.get("/", authenticate, streamController.getAll)
 
-streamRouter.get("/:id", validate(streamValidation.id), streamController.getOne)
+streamRouter.get("/:id", validate(streamValidation.id), authenticate, streamController.getOne)
 
-streamRouter.patch("/:id", validate(streamValidation.update), streamController.updateOne)
+streamRouter.patch("/:id", validate(streamValidation.update), authenticate, streamController.updateOne)
 
-streamRouter.delete("/:id", validate(streamValidation.id), streamController.deleteOne)
+streamRouter.delete("/:id", validate(streamValidation.id), authenticate, streamController.deleteOne)
+
+streamRouter.get("/:id/episode", validate(streamValidation.id), authenticate, streamController.getAnEpisodeOfStreamByStreamId)
+
+streamRouter.get("/:id/user", validate(streamValidation.id), authenticate, streamController.getuserOfStreamByStreamId)
 
 export default streamRouter

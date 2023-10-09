@@ -21,9 +21,9 @@ const streamValidation = {
             id: Joi.string().required()
         }),
         body: Joi.object().keys({
-            episode_id: Joi.string().required(),
-            user_id: Joi.string().required(),
-            time: Joi.string().required(),
+            episode_id: Joi.string(),
+            user_id: Joi.string(),
+            time: Joi.string(),
         })
     }
 }

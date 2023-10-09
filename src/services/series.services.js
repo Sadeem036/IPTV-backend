@@ -1,3 +1,4 @@
+import seasonModel from "../models/season.js";
 import seriesModel from "../models/series.js";
 
 const seriesServices = {
@@ -20,6 +21,10 @@ const seriesServices = {
     
     deleteOne: async (id) => {
         return seriesModel.deleteOne({ _id: id })
+    },
+
+    getAllSeasonBySeriesId: async (series_id) => {
+        return seasonModel.find({ series_id })
     }
 }
 

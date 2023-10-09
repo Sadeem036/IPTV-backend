@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const schema = mongoose.Schema(
     {
         time: {
-            type: Number,
+            type: String,
             required: true,
         },
         user_id: {

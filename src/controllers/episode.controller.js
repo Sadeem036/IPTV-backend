@@ -61,6 +61,19 @@ const episodeController = {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
         }
     },
+
+    getAllStreamsByEpisodeId: async (req, res) => {
+        try {
+            const data = await episodeServices.getAllStreamsByEpisodeId(req.params.id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    }
 }
 
 export default episodeController

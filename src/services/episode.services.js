@@ -1,4 +1,5 @@
 import episodeModel from "../models/episode.js"
+import streamModel from "../models/stream.js"
 
 const episodeServices = {
 
@@ -20,6 +21,10 @@ const episodeServices = {
     
     deleteOne: async (id) => {
         return episodeModel.deleteOne({ _id: id })
+    },
+
+    getAllStreamsByEpisodeId: async (episode_id) => {
+        return streamModel.find({ episode_id }).populate("episode_id")
     }
 }
 

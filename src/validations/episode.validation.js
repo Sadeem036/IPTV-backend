@@ -22,10 +22,10 @@ const episodeValidation = {
             id: Joi.string().required()
         }),
         body: Joi.object().keys({
-            season_id: Joi.string().required(),
-            name: Joi.string().required().min(2).max(20),
-            description: Joi.string().required(),
-            thumbnail_id: Joi.string().required(),
+            season_id: Joi.string(),
+            name: Joi.string().min(2).max(20),
+            description: Joi.string(),
+            thumbnail_id: Joi.string(),
         })
     }
 }

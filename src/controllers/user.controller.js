@@ -101,6 +101,49 @@ const userController = {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
         }
     },
+
+    getUserStreams: async (req, res) => {
+        try {
+            const data = await userService.getUserStreams(req.params.id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
+
+    getStreamByUserIdAndStreamID: async (req, res) => {
+        try {
+            const { id, stream_id } = req.params
+            const data = await userService.getUserStreams(id, stream_id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
+
+    deleteStreamByUserIdAndStreamId: async (req, res) => {
+        try {
+            const { id, stream_id } = req.params
+            const data = await userService.deleteStreamByUserIdAndStreamId(id, stream_id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    }
+
+
 }
 
 export default userController

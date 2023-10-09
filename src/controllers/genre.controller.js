@@ -61,6 +61,33 @@ const genreController = {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
         }
     },
+
+    getSeriesByGenreId: async (req, res) => {
+        try {
+            const data = await genreServices.getSeriesBygenreId(req.params.id)
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
+
+    getAllSeasonOfAllSeriesByGenreId: async (req, res) => {
+        try {
+            const data = await genreServices.getAllSeasonOfAllSeriesByGenreId(req.params.id)
+            console.log(data);
+            if (data) {
+                return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
 }
 
 export default genreController
