@@ -36,15 +36,31 @@ const streamServices = {
         return streamModel.find({ _id: stream_id }).populate("user_id")
     },
 
-    getSeasonOfAnEpisodeOfAStreamByStreamId: async ( stream_id ) =>  {
-        return streamModel.find({ _id: stream_id })
-    },
+    // getSeasonOfAnEpisodeOfAStreamByStreamId1: async ( stream_id ) =>  {
+    //     return streamModel.find({ _id: stream_id })
+    // },
 
-    getSeasonOfAnEpisodeOfAStreamByStreamId2: async ( episodeIds ) =>  {
-        return episodeModel.find({ _id: { $in: episodeIds }})
-    },
-    getSeasonOfAnEpisodeOfAStreamByStreamId3: async (season_id) => {
-        return seasonModel.find({ _id: { $in: season_id}})
+    // getSeasonOfAnEpisodeOfAStreamByStreamId2: async ( episodeIds ) =>  {
+    //     return episodeModel.find({ _id: { $in: episodeIds }})
+    // },
+    // getSeasonOfAnEpisodeOfAStreamByStreamId3: async (season_id) => {
+    //     return seasonModel.find({ _id: { $in: season_id}})
+    // },
+
+    getSeasonOfAnEpisodeOfAStreamByStreamId: async (stream_id) => {
+        const stream = await streamModel.find({ _id: stream_id})
+        if(stream) {
+            const episodeIds = stream.map(e => e.episode_id)
+            const ids = episodeIds.map((id) => new mongoose.Types.ObjectId(id))
+            const episode = await episodeModel.find({ _id: { $in: ids }})
+            if(episode){
+                const seasonId = episode.map(e => e.season_id)
+                const id = seasonId.map((id) => new mongoose.Types.ObjectId(id))
+                const season = seasonModel.find({ _id: { $in: id}})
+                return season
+            }
+        }
+        else return null
     },
 
     getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async ( stream_id) => {
