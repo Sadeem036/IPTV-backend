@@ -37,12 +37,9 @@ export const genreServices = {
             const ids = seriesIDs.map((id) => new mongoose.Types.ObjectId(id))
             const series = await seriesModel.find({ _id: { $in: ids}})
             if(series){
-                console.log(series);
                 const seriesIDS = series.map(e => e._id)
-                console.log(seriesIDS);
                 const IDS = seriesIDS.map((id) => new mongoose.Types.ObjectId(id))
                 const season = await seasonModel.find({ series_id: { $in: IDS }})
-                console.log(season);
                 return season
             }
         }
