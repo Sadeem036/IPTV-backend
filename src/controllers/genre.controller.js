@@ -78,7 +78,6 @@ const genreController = {
     getAllSeasonOfAllSeriesByGenreId: async (req, res) => {
         try {
             const data = await genreServices.getAllSeasonOfAllSeriesByGenreId(req.params.id)
-            console.log(data);
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

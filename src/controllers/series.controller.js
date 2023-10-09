@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import seriesServices from "../services/series.services.js"
 import { httpResponse } from "../utils/httpResponse.js"
 
@@ -67,6 +68,22 @@ const seriesController = {
             const data = await seriesServices.getAllSeasonBySeriesId(req.params.id)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
+            }
+            return httpResponse.NOT_FOUND(res)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+        }
+    },
+
+    getAllEpissodeBySeriesId: async ( req, res) => {
+        try {
+            const data = await seriesServices.getAllEpissodeBySeriesId(req.params.id)
+            if (data) {
+                const seasonIds = data.map(e => e._id)
+                const ids = seasonIds.map((id) => new mongoose.Types.ObjectId(id))
+                const result = await seriesServices.getAllEpissodeBySeriesId2(ids)
+                return httpResponse.SUCCESS(res, result)
             }
             return httpResponse.NOT_FOUND(res)
         }

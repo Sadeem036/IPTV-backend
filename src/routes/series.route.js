@@ -18,4 +18,6 @@ seriesRouter.delete("/:id", validate(seriesValidation.id), authenticate, seriesC
 
 seriesRouter.get("/:id/seasons", validate(seriesValidation.id), authenticate, seriesController.getAllSeasonBySeriesId)
 
+seriesRouter.get("/:id/seasons/episodes", validate(seriesValidation.id), seriesController.getAllEpissodeBySeriesId)
+
 export default seriesRouter

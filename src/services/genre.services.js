@@ -1,5 +1,7 @@
+import mongoose from 'mongoose';
 import genreSeriesModel from '../models/genre.series.js';
 import seasonModel from '../models/season.js';
+import seriesModel from '../models/series.js';
 import genreModel from './../models/genre.js';
 
 export const genreServices = {
@@ -29,35 +31,21 @@ export const genreServices = {
     },
 
     getAllSeasonOfAllSeriesByGenreId: async (genre_id) => {
-
-        const seasons = genreSeriesModel.aggregate([
-            {
-                $match: { genre_id },
-            },
-            {
-                $lookup: {
-                    from: 'Series', // Replace with the actual name of your "Series" collection
-                    localField: 'series_id',
-                    foreignField: '_id',
-                    as: 'series',
-                },
-            },
-            {
-                $unwind: '$series',
-            },
-            {
-                $lookup: {
-                    from: 'Season', // Replace with the actual name of your "Season" collection
-                    localField: 'series._id',
-                    foreignField: 'series_id',
-                    as: 'seasons',
-                },
-            },
-            {
-                $unwind: '$seasons',
-            },
-        ])
-
-        return seasons
+        const genreSeries = await genreSeriesModel.find({ genre_id })
+        if(genreSeries){
+            const seriesIDs = genreSeries.map(e => e.series_id)
+            const ids = seriesIDs.map((id) => new mongoose.Types.ObjectId(id))
+            const series = await seriesModel.find({ _id: { $in: ids}})
+            if(series){
+                console.log(series);
+                const seriesIDS = series.map(e => e._id)
+                console.log(seriesIDS);
+                const IDS = seriesIDS.map((id) => new mongoose.Types.ObjectId(id))
+                const season = await seasonModel.find({ series_id: { $in: IDS }})
+                console.log(season);
+                return season
+            }
+        }
+        else return null
     }
 }

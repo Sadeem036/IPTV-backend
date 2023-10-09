@@ -21,4 +21,10 @@ streamRouter.get("/:id/episode", validate(streamValidation.id), authenticate, st
 
 streamRouter.get("/:id/user", validate(streamValidation.id), authenticate, streamController.getuserOfStreamByStreamId)
 
+streamRouter.get("/:id/episode/season", validate(streamValidation.id), streamController.getSeasonOfAnEpisodeOfAStreamByStreamId)
+
+streamRouter.get("/:id/episode/season/series", validate(streamValidation.id), streamController.getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId)
+
+streamRouter.get("/:id/episode/season/series/genre", validate(streamValidation.id), streamController.getTheGenreOfSeriesOfSeasonOfAnEpisodeOfStreamByStreamId)
+
 export default streamRouter

@@ -1,3 +1,4 @@
+import episodeModel from "../models/episode.js";
 import seasonModel from "../models/season.js";
 import seriesModel from "../models/series.js";
 
@@ -25,7 +26,16 @@ const seriesServices = {
 
     getAllSeasonBySeriesId: async (series_id) => {
         return seasonModel.find({ series_id })
+    },
+
+    getAllEpissodeBySeriesId: async (series_id) => {
+        const result = seasonModel.find({ series_id })
+        return result
+    },
+    getAllEpissodeBySeriesId2: async (ids) => {
+        return episodeModel.find({ season_id: { $in: ids}})
     }
+
 }
 
 export default seriesServices
