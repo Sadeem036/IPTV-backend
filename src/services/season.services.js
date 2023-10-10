@@ -8,8 +8,9 @@ const seasonServices = {
         return seasonModel.create(data)
     },
 
-    get: async () => {
-        return seasonModel.find()
+    get: async ( pageNumber, limit ) => {
+        const skip = limit*pageNumber - limit
+        return seasonModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {
@@ -24,8 +25,10 @@ const seasonServices = {
         return seasonModel.deleteOne({ _id: id })
     },
 
-    getAllEpisodesBySeasonId: async (season_id) => {
-        return episodeModel.find({ season_id })
+    getAllEpisodesBySeasonId: async (season_id, pageNumber, limit) => {
+        const skip = limit*pageNumber - limit
+        console.log("SKIP",skip);
+        return episodeModel.find({ season_id }).limit(limit).skip(skip)
     }
 }
 

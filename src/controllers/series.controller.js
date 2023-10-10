@@ -29,7 +29,8 @@ const seriesController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await seriesServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await seriesServices.get( pageNumber, limit )
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

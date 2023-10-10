@@ -28,7 +28,8 @@ const fileController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await fileServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await fileServices.get( pageNumber, limit )
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

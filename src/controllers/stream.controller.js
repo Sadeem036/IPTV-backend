@@ -29,7 +29,8 @@ const streamController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await streamServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await streamServices.get( pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
@@ -88,26 +89,6 @@ const streamController = {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
         }
     },
-
-    // getSeasonOfAnEpisodeOfAStreamByStreamId: async (req, res) => {
-    //     try {
-    //         const data = await streamServices.getSeasonOfAnEpisodeOfAStreamByStreamId(req.params.id)
-    //         if (data) {
-    //             console.log(data);
-    //             const episodeIds = data.map(e => e.episode_id)
-    //             const ids = episodeIds.map((id) => new mongoose.Types.ObjectId(id))
-    //             const result = await streamServices.getSeasonOfAnEpisodeOfAStreamByStreamId2(ids)
-    //             const seasonId = result.map(e => e.season_id)
-    //             const id = seasonId.map((id) => new mongoose.Types.ObjectId(id))
-    //             const response = await streamServices.getSeasonOfAnEpisodeOfAStreamByStreamId3(id)
-    //             return httpResponse.SUCCESS(res, response)
-    //         }
-    //         return httpResponse.NOT_FOUND(res)
-    //     }
-    //     catch (error) {
-    //         return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
-    //     }
-    // },
 
     getSeasonOfAnEpisodeOfAStreamByStreamId: async (req, res) => {
         try {

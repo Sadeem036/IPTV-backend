@@ -8,8 +8,9 @@ const seriesServices = {
         return seriesModel.create(data)
     },
 
-    get: async () => {
-        return seriesModel.find()
+    get: async ( pageNumber, limit ) => {
+        const skip = limit*pageNumber - limit
+        return seriesModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {

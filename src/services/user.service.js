@@ -7,8 +7,9 @@ export const userService = {
         return userModel.create(data)
     },
 
-    get: async () => {
-        return userModel.find()
+    get: async ( pageNumber, limit ) => {
+        const skip = limit*pageNumber - limit
+        return userModel.find().limit(limit).skip(skip)
     },
 
     login: async (data) => {

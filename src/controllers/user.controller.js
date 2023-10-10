@@ -22,7 +22,8 @@ const userController = {
 
     get: async (req, res) => {
         try {
-            const data = await userService.get()
+            const { pageNumber , limit } = req.query
+            const data = await userService.get( pageNumber, limit)
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {

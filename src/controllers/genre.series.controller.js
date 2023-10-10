@@ -28,7 +28,8 @@ const genreSeriesController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await genreSeriesServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await genreSeriesServices.get(pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

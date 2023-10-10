@@ -28,7 +28,8 @@ const seasonController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await seasonServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await seasonServices.get( pageNumber, limit )
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
@@ -64,7 +65,8 @@ const seasonController = {
 
     getAllEpisodesBySeasonId: async (req, res) => {
         try {
-            const data = await seasonServices.getAllEpisodesBySeasonId(req.params.id)
+            const { pageNumber , limit } = req.query
+            const data = await seasonServices.getAllEpisodesBySeasonId(req.params.id, pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

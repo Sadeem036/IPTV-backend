@@ -28,7 +28,8 @@ const episodeController = {
 
     getAll: async (req, res) => {
         try {
-            const data = await episodeServices.get()
+            const { pageNumber , limit } = req.query
+            const data = await episodeServices.get(pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

@@ -6,8 +6,9 @@ const fileServices = {
         return fileModel.create(data)
     },
 
-    get: async () => {
-        return fileModel.find()
+    get: async ( pageNumber , limit ) => {
+        const skip = limit*pageNumber - limit
+        return fileModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {

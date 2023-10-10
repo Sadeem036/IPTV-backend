@@ -12,8 +12,9 @@ const streamServices = {
         return streamModel.create(data)
     },
 
-    get: async () => {
-        return streamModel.find()
+    get: async ( pageNumber, limit ) => {
+        const skip = limit*pageNumber - limit
+        return streamModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {
@@ -35,17 +36,6 @@ const streamServices = {
     getUserOfStreamByStreamId: async (stream_id) => {
         return streamModel.find({ _id: stream_id }).populate("user_id")
     },
-
-    // getSeasonOfAnEpisodeOfAStreamByStreamId1: async ( stream_id ) =>  {
-    //     return streamModel.find({ _id: stream_id })
-    // },
-
-    // getSeasonOfAnEpisodeOfAStreamByStreamId2: async ( episodeIds ) =>  {
-    //     return episodeModel.find({ _id: { $in: episodeIds }})
-    // },
-    // getSeasonOfAnEpisodeOfAStreamByStreamId3: async (season_id) => {
-    //     return seasonModel.find({ _id: { $in: season_id}})
-    // },
 
     getSeasonOfAnEpisodeOfAStreamByStreamId: async (stream_id) => {
         const stream = await streamModel.find({ _id: stream_id})
@@ -103,7 +93,6 @@ const streamServices = {
         }
         else return null
     }
-
 }
 
 export default streamServices

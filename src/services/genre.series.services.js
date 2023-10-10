@@ -6,8 +6,9 @@ const genreSeriesServices = {
         return genreSeriesModel.create(data)
     },
 
-    get: async () => {
-        return genreSeriesModel.find()
+    get: async ( pageNumber, limit ) => {
+        const skip = limit*pageNumber - limit
+        return genreSeriesModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {

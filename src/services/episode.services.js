@@ -7,8 +7,9 @@ const episodeServices = {
         return episodeModel.create(data)
     },
 
-    get: async () => {
-        return episodeModel.find()
+    get: async ( pageNumber , limit ) => {
+        const skip = limit*pageNumber - limit
+        return episodeModel.find().limit(limit).skip(skip)
     },
 
     getById: async (id) => {
