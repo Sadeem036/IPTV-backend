@@ -119,7 +119,7 @@ const userController = {
     getStreamByUserIdAndStreamID: async (req, res) => {
         try {
             const { id, stream_id } = req.params
-            const data = await userService.getUserStreams(id, stream_id)
+            const data = await userService.getStreamByUserIdAndStreamId(id, stream_id)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }

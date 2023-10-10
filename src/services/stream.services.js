@@ -38,60 +38,161 @@ const streamServices = {
     },
 
     getSeasonOfAnEpisodeOfAStreamByStreamId: async (stream_id) => {
-        const stream = await streamModel.find({ _id: stream_id})
-        if(stream) {
-            const episodeIds = stream.map(e => e.episode_id)
-            const ids = episodeIds.map((id) => new mongoose.Types.ObjectId(id))
-            const episode = await episodeModel.find({ _id: { $in: ids }})
-            if(episode){
-                const seasonId = episode.map(e => e.season_id)
-                const id = seasonId.map((id) => new mongoose.Types.ObjectId(id))
-                const season = seasonModel.find({ _id: { $in: id}})
-                return season
-            }
-        }
-        else return null
-    },
-
-    getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async ( stream_id) => {
-        const data = await streamModel.aggregate([
+        // const stream = await streamModel.find({ _id: stream_id})
+        // if(stream) {
+        //     const episodeIds = stream.map(e => e.episode_id)
+        //     const ids = episodeIds.map((id) => new mongoose.Types.ObjectId(id))
+        //     const episode = await episodeModel.find({ _id: { $in: ids }})
+        //     if(episode){
+        //         const seasonId = episode.map(e => e.season_id)
+        //         const id = seasonId.map((id) => new mongoose.Types.ObjectId(id))
+        //         const season = seasonModel.find({ _id: { $in: id}})
+        //         return season
+        //     }
+        // }
+        // else return null
+        return streamModel.aggregate([
             {
                 $match: {
                     _id: new mongoose.Types.ObjectId(stream_id)
                 }
+            },
+            {
+                $lookup: {
+                    from: "episodes",
+                    localField: "episode_id",
+                    foreignField: "_id",
+                    as: "Episodes"
+                }
+            },
+            {
+                $lookup: {
+                    from: "seasons",
+                    localField: "Episodes.season_id",
+                    foreignField: "_id",
+                    as:  "Season"
+                }
             }
         ])
-        if(data){
-            const res = await episodeModel.find({ _id: data[0].episode_id })
-            if(res){
-                const response = await seasonModel.find({ _id: res[0].season_id})
-                if(response){
-                    const result = await seriesModel.find({ _id: response[0].series_id})
-                    return result
+    },
+
+    getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async ( stream_id) => {
+        // const data = await streamModel.aggregate([
+        //     {
+        //         $match: {
+        //             _id: new mongoose.Types.ObjectId(stream_id)
+        //         }
+        //     }
+        // ])
+        // if(data){
+        //     const res = await episodeModel.find({ _id: data[0].episode_id })
+        //     if(res){
+        //         const response = await seasonModel.find({ _id: res[0].season_id})
+        //         if(response){
+        //             const result = await seriesModel.find({ _id: response[0].series_id})
+        //             return result
+        //         }
+        //     }
+        // }
+        // else return null
+        return streamModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(stream_id)
+                }
+            },
+            {
+                $lookup: {
+                    from: "episodes",
+                    localField: "episode_id",
+                    foreignField: "_id",
+                    as: "Episodes"
+                }
+            },
+            {
+                $lookup: {
+                    from: "seasons",
+                    localField: "Episodes.season_id",
+                    foreignField: "_id",
+                    as: "Seasons"
+                }
+            },
+            {
+                $lookup: {
+                    from: "series",
+                    localField: "Seasons.series_id",
+                    foreignField: "_id",
+                    as: "Series"
                 }
             }
-        }
-        else return null
+        ])
     },
     getTheGenreOfSeriesOfSeasonOfAnEpisodeOfStreamByStreamId : async (stream_id) => {
-        const stream = await streamModel.find({_id: stream_id})
-        if(stream){
-            const episode = await episodeModel.find({ _id: stream[0].episode_id})
-            if(episode){
-                const season = await seasonModel.find({ _id: episode[0].season_id})
-                if(season){
-                    const series = await seriesModel.find({ _id: season[0].series_id})
-                    if(series){
-                        const genreSeries = await genreSeriesModel.find({ series_id: series[0]._id})
-                        if(genreSeries){
-                            const genre = await genreModel.find({ _id: genreSeries[0].genre_id})
-                            return genre
-                        }
-                    }
+        // const stream = await streamModel.find({_id: stream_id})
+        // if(stream){
+        //     const episode = await episodeModel.find({ _id: stream[0].episode_id})
+        //     if(episode){
+        //         const season = await seasonModel.find({ _id: episode[0].season_id})
+        //         if(season){
+        //             const series = await seriesModel.find({ _id: season[0].series_id})
+        //             if(series){
+        //                 const genreSeries = await genreSeriesModel.find({ series_id: series[0]._id})
+        //                 if(genreSeries){
+        //                     const genre = await genreModel.find({ _id: genreSeries[0].genre_id})
+        //                     return genre
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // else return null
+        return streamModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(stream_id)
+                }
+            },
+            {
+                $lookup: {
+                    from: "episodes",
+                    localField: "episode_id",
+                    foreignField: "_id",
+                    as: "Episodes"
+                }
+            },
+            {
+                $lookup: {
+                    from: "seasons",
+                    localField: "Episodes.season_id",
+                    foreignField: "_id",
+                    as: "Seasons"
+                }
+            },
+            {
+                $lookup: {
+                    from: "series",
+                    localField: "Seasons.series_id",
+                    foreignField: "_id",
+                    as: "Series"
+                }
+            },
+            {
+                $lookup: {
+                    from: "genreseries",
+                    localField: "Series._id",
+                    foreignField: "series_id",
+                    as: "GenreSeries"
+                }
+            },
+            {
+                $lookup: {
+                    from: "genres",
+                    localField: "GenreSeries.genre_id",
+                    foreignField: "_id",
+                    as: "Genre"
                 }
             }
-        }
-        else return null
+        ])
     }
 }
 

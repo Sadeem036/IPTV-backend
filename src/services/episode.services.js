@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import episodeModel from "../models/episode.js"
 import streamModel from "../models/stream.js"
 
@@ -25,7 +26,22 @@ const episodeServices = {
     },
 
     getAllStreamsByEpisodeId: async (episode_id) => {
-        return streamModel.find({ episode_id }).populate("episode_id")
+        // return streamModel.find({ episode_id }).populate("episode_id")
+        return episodeModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(episode_id)
+                }
+            },
+            {
+                $lookup: {
+                    from: "streams",
+                    localField: "_id",
+                    foreignField: "episode_id",
+                    as: "Streams"
+                }
+            }
+        ])
     }
 }
 

@@ -1,6 +1,7 @@
 import seasonValidation from "../validations/season.validation.js";
 import seasonModel from "../models/season.js"
 import episodeModel from "../models/episode.js";
+import mongoose from "mongoose";
 
 const seasonServices = {
 
@@ -26,9 +27,24 @@ const seasonServices = {
     },
 
     getAllEpisodesBySeasonId: async (season_id, pageNumber, limit) => {
-        const skip = limit*pageNumber - limit
-        console.log("SKIP",skip);
-        return episodeModel.find({ season_id }).limit(limit).skip(skip)
+        // const skip = limit*pageNumber - limit
+        // console.log("SKIP",skip);
+        // return episodeModel.find({ season_id }).limit(limit).skip(skip)
+        return seasonModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(season_id)
+                }
+            },
+            {
+                $lookup: {
+                    from: "episodes",
+                    localField: "_id",
+                    foreignField: "season_id",
+                    as: "Episodes"
+                }
+            }
+        ])
     }
 }
 
