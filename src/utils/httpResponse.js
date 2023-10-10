@@ -109,6 +109,14 @@ export const httpResponse = {
 			data,
 		});
 	},
+	EMAIL_ALREADY_EXISTS: (res, data = {}, message = ErrorCodesMeta.USER_ALREADY_EXISTS.message) => {
+		res.status(404).json({
+			status: 404,
+			response: "email already exists",
+			message,
+			data,
+		});
+	},
 	PASSWORD_MISMATCH: (res, data = {}, message = ErrorCodesMeta.YOUR_PASSWORD_IS_INCORRECT.message) => {
 		res.status(404).json({
 			status: 404,

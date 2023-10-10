@@ -9,11 +9,11 @@ const userController = {
 
     add: async (req, res) => {
         try {
-            const { password } = req.body
-            const hashedPassword = passwordHash.generate(password)
-            req.body.password = hashedPassword
             const data = await userService.add(req.body)
-            return httpResponse.CREATED(res, data)
+            if(data){
+                return httpResponse.CREATED(res, data)
+            }
+            return httpResponse.EMAIL_ALREADY_EXISTS(res)
         }
         catch (error) {
             return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)

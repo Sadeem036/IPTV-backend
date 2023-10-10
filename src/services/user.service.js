@@ -1,11 +1,24 @@
 import mongoose from "mongoose";
 import streamModel from "../models/stream.js";
 import userModel from "../models/user.js";
+import passwordHash from 'password-hash';
 
 export const userService = {
 
     add: async (data) => {
-        return userModel.create(data)
+        const { email } = data
+        const emailExist = await userModel.find({ email })
+        console.log(emailExist);
+        if(emailExist.length > 0){
+            return false
+        }
+        else{
+            const { password } = data
+            const hashpassword = passwordHash.generate(password)
+            data.password = hashpassword
+            const user = await userModel.create(data)
+            return user
+        }
     },
 
     get: async (pageNumber, limit) => {
