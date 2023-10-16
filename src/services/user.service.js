@@ -9,10 +9,10 @@ export const userService = {
         const { email } = data
         const emailExist = await userModel.find({ email })
         console.log(emailExist);
-        if(emailExist.length > 0){
+        if (emailExist.length > 0) {
             return false
         }
-        else{
+        else {
             const { password } = data
             const hashpassword = passwordHash.generate(password)
             data.password = hashpassword

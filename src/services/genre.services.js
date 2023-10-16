@@ -10,8 +10,8 @@ export const genreServices = {
         return genreModel.create(data)
     },
 
-    get: async ( pageNumber, limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return genreModel.find().limit(limit).skip(skip)
     },
 
@@ -41,7 +41,7 @@ export const genreServices = {
                 }
             },
             {
-                $lookup:{
+                $lookup: {
                     from: "genreseries",
                     localField: "_id",
                     foreignField: "genre_id",
@@ -92,18 +92,18 @@ export const genreServices = {
                 }
             }
         ])
-    //     const genreSeries = await genreSeriesModel.find({ genre_id })
-    //     if(genreSeries){
-    //         const seriesIDs = genreSeries.map(e => e.series_id)
-    //         const ids = seriesIDs.map((id) => new mongoose.Types.ObjectId(id))
-    //         const series = await seriesModel.find({ _id: { $in: ids}})
-    //         if(series){
-    //             const seriesIDS = series.map(e => e._id)
-    //             const IDS = seriesIDS.map((id) => new mongoose.Types.ObjectId(id))
-    //             const season = await seasonModel.find({ series_id: { $in: IDS }})
-    //             return season
-    //         }
-    //     }
-    //     else return null
+        //     const genreSeries = await genreSeriesModel.find({ genre_id })
+        //     if(genreSeries){
+        //         const seriesIDs = genreSeries.map(e => e.series_id)
+        //         const ids = seriesIDs.map((id) => new mongoose.Types.ObjectId(id))
+        //         const series = await seriesModel.find({ _id: { $in: ids}})
+        //         if(series){
+        //             const seriesIDS = series.map(e => e._id)
+        //             const IDS = seriesIDS.map((id) => new mongoose.Types.ObjectId(id))
+        //             const season = await seasonModel.find({ series_id: { $in: IDS }})
+        //             return season
+        //         }
+        //     }
+        //     else return null
     }
 }

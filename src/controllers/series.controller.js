@@ -10,7 +10,7 @@ const seriesController = {
             return httpResponse.CREATED(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -23,21 +23,21 @@ const seriesController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
     getAll: async (req, res) => {
         try {
-            const { pageNumber , limit } = req.query
-            const data = await seriesServices.get( pageNumber, limit )
+            const { pageNumber, limit } = req.query
+            const data = await seriesServices.get(pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -50,7 +50,7 @@ const seriesController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -60,11 +60,11 @@ const seriesController = {
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
-    getAllSeasonBySeriesId: async ( req, res) => {
+    getAllSeasonBySeriesId: async (req, res) => {
         try {
             const data = await seriesServices.getAllSeasonBySeriesId(req.params.id)
             if (data) {
@@ -73,36 +73,36 @@ const seriesController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
-    getAllEpissodeBySeriesId: async ( req, res) => {
-        try {
-            const data = await seriesServices.getAllEpissodeBySeriesId(req.params.id)
-            if (data) {
-                const seasonIds = data.map(e => e._id)
-                const ids = seasonIds.map((id) => new mongoose.Types.ObjectId(id))
-                const result = await seriesServices.getAllEpissodeBySeriesId2(ids)
-                return httpResponse.SUCCESS(res, result)
-            }
-            return httpResponse.NOT_FOUND(res)
-        }
-        catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
-        }
-    },
+    // getAllEpissodeBySeriesId: async ( req, res) => {
+    //     try {
+    //         const data = await seriesServices.getAllEpissodeBySeriesId(req.params.id)
+    //         if (data) {
+    //             const seasonIds = data.map(e => e._id)
+    //             const ids = seasonIds.map((id) => new mongoose.Types.ObjectId(id))
+    //             const result = await seriesServices.getAllEpissodeBySeriesId2(ids)
+    //             return httpResponse.SUCCESS(res, result)
+    //         }
+    //         return httpResponse.NOT_FOUND(res)
+    //     }
+    //     catch (error) {
+    //         return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+    //     }
+    // },
 
     getEpisodeBySeriesId: async (req, res) => {
-        try{
+        try {
             const data = await seriesServices.getEpissodesBySeriesId(req.params.id)
-            if(data){
+            if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     }
 }

@@ -6,8 +6,8 @@ const fileServices = {
         return fileModel.create(data)
     },
 
-    get: async ( pageNumber , limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return fileModel.find().limit(limit).skip(skip)
     },
 
@@ -18,7 +18,7 @@ const fileServices = {
     updateOne: async (id, data) => {
         return fileModel.findByIdAndUpdate(id, data, { new: true })
     },
-    
+
     deleteOne: async (id) => {
         return fileModel.deleteOne({ _id: id })
     }

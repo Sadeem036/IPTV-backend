@@ -8,8 +8,8 @@ const episodeServices = {
         return episodeModel.create(data)
     },
 
-    get: async ( pageNumber , limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return episodeModel.find().limit(limit).skip(skip)
     },
 
@@ -20,7 +20,7 @@ const episodeServices = {
     updateOne: async (id, data) => {
         return episodeModel.findByIdAndUpdate(id, data, { new: true })
     },
-    
+
     deleteOne: async (id) => {
         return episodeModel.deleteOne({ _id: id })
     },

@@ -9,8 +9,8 @@ const seasonServices = {
         return seasonModel.create(data)
     },
 
-    get: async ( pageNumber, limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return seasonModel.find().limit(limit).skip(skip)
     },
 
@@ -21,7 +21,7 @@ const seasonServices = {
     updateOne: async (id, data) => {
         return seasonModel.findByIdAndUpdate(id, data, { new: true })
     },
-    
+
     deleteOne: async (id) => {
         return seasonModel.deleteOne({ _id: id })
     },

@@ -10,24 +10,24 @@ const userController = {
     add: async (req, res) => {
         try {
             const data = await userService.add(req.body)
-            if(data){
+            if (data) {
                 return httpResponse.CREATED(res, data)
             }
             return httpResponse.EMAIL_ALREADY_EXISTS(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
     get: async (req, res) => {
         try {
-            const { pageNumber , limit } = req.query
-            const data = await userService.get( pageNumber, limit)
+            const { pageNumber, limit } = req.query
+            const data = await userService.get(pageNumber, limit)
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -53,7 +53,7 @@ const userController = {
         }
         catch (error) {
             console.log(error.message);
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -79,7 +79,7 @@ const userController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -89,7 +89,7 @@ const userController = {
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -99,7 +99,7 @@ const userController = {
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -112,7 +112,7 @@ const userController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -126,7 +126,7 @@ const userController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -140,7 +140,7 @@ const userController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     }
 

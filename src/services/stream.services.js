@@ -12,8 +12,8 @@ const streamServices = {
         return streamModel.create(data)
     },
 
-    get: async ( pageNumber, limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return streamModel.find().limit(limit).skip(skip)
     },
 
@@ -24,7 +24,7 @@ const streamServices = {
     updateOne: async (id, data) => {
         return streamModel.findByIdAndUpdate(id, data, { new: true })
     },
-    
+
     deleteOne: async (id) => {
         return streamModel.deleteOne({ _id: id })
     },
@@ -70,13 +70,13 @@ const streamServices = {
                     from: "seasons",
                     localField: "Episodes.season_id",
                     foreignField: "_id",
-                    as:  "Season"
+                    as: "Season"
                 }
             }
         ])
     },
 
-    getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async ( stream_id) => {
+    getTheSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async (stream_id) => {
         // const data = await streamModel.aggregate([
         //     {
         //         $match: {
@@ -127,7 +127,7 @@ const streamServices = {
             }
         ])
     },
-    getTheGenreOfSeriesOfSeasonOfAnEpisodeOfStreamByStreamId : async (stream_id) => {
+    getTheGenreOfSeriesOfSeasonOfAnEpisodeOfStreamByStreamId: async (stream_id) => {
         // const stream = await streamModel.find({_id: stream_id})
         // if(stream){
         //     const episode = await episodeModel.find({ _id: stream[0].episode_id})

@@ -6,8 +6,8 @@ const genreSeriesServices = {
         return genreSeriesModel.create(data)
     },
 
-    get: async ( pageNumber, limit ) => {
-        const skip = limit*pageNumber - limit
+    get: async (pageNumber, limit) => {
+        const skip = limit * pageNumber - limit
         return genreSeriesModel.find().limit(limit).skip(skip)
     },
 
@@ -18,7 +18,7 @@ const genreSeriesServices = {
     updateOne: async (id, data) => {
         return genreSeriesModel.findByIdAndUpdate(id, data, { new: true })
     },
-    
+
     deleteOne: async (id) => {
         return genreSeriesModel.deleteOne({ _id: id })
     }

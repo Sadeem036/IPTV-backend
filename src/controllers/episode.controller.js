@@ -9,7 +9,7 @@ const episodeController = {
             return httpResponse.CREATED(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -22,13 +22,13 @@ const episodeController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
     getAll: async (req, res) => {
         try {
-            const { pageNumber , limit } = req.query
+            const { pageNumber, limit } = req.query
             const data = await episodeServices.get(pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
@@ -36,7 +36,7 @@ const episodeController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -49,7 +49,7 @@ const episodeController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -59,7 +59,7 @@ const episodeController = {
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -72,7 +72,7 @@ const episodeController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     }
 }

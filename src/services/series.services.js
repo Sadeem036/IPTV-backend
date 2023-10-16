@@ -30,13 +30,13 @@ const seriesServices = {
         return seasonModel.find({ series_id })
     },
 
-    getAllEpissodeBySeriesId: async (series_id) => {
-        const result = seasonModel.find({ series_id })
-        return result
-    },
-    getAllEpissodeBySeriesId2: async (ids) => {
-        return episodeModel.find({ season_id: { $in: ids } })
-    },
+    // getAllEpissodeBySeriesId: async (series_id) => {
+    //     const result = seasonModel.find({ series_id })
+    //     return result
+    // },
+    // getAllEpissodeBySeriesId2: async (ids) => {
+    //     return episodeModel.find({ season_id: { $in: ids } })
+    // },
 
     getEpissodesBySeriesId: async (id) => {
         return seriesModel.aggregate([

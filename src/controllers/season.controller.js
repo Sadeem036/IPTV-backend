@@ -9,7 +9,7 @@ const seasonController = {
             return httpResponse.CREATED(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -22,21 +22,21 @@ const seasonController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
     getAll: async (req, res) => {
         try {
-            const { pageNumber , limit } = req.query
-            const data = await seasonServices.get( pageNumber, limit )
+            const { pageNumber, limit } = req.query
+            const data = await seasonServices.get(pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -49,7 +49,7 @@ const seasonController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
@@ -59,13 +59,13 @@ const seasonController = {
             return httpResponse.SUCCESS(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     },
 
     getAllEpisodesBySeasonId: async (req, res) => {
         try {
-            const { pageNumber , limit } = req.query
+            const { pageNumber, limit } = req.query
             const data = await seasonServices.getAllEpisodesBySeasonId(req.params.id, pageNumber, limit)
             if (data) {
                 return httpResponse.SUCCESS(res, data)
@@ -73,7 +73,7 @@ const seasonController = {
             return httpResponse.NOT_FOUND(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res,  error.message)
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
         }
     }
 }
