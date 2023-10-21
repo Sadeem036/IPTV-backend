@@ -94,7 +94,7 @@ export const httpResponse = {
 		});
 	},
 	NOT_FOUND: (res, data = {}, message = ErrorCodesMeta.NOT_FOUND.message) => {
-		res.status(404).json({
+		res.status(200).json({
 			status: 404,
 			response: "Not Found",
 			message,
@@ -102,7 +102,7 @@ export const httpResponse = {
 		});
 	},
 	USER_NOT_FOUND: (res, data = {}, message = ErrorCodesMeta.USER_NOT_EXISTS_WITH_THIS_EMAIL.message) => {
-		res.status(404).json({
+		res.status(200).json({
 			status: 404,
 			response: "Not Found",
 			message,
@@ -110,7 +110,7 @@ export const httpResponse = {
 		});
 	},
 	EMAIL_ALREADY_EXISTS: (res, data = {}, message = ErrorCodesMeta.USER_ALREADY_EXISTS.message) => {
-		res.status(404).json({
+		res.status(200).json({
 			status: 404,
 			response: "email already exists",
 			message,
@@ -118,7 +118,7 @@ export const httpResponse = {
 		});
 	},
 	PASSWORD_MISMATCH: (res, data = {}, message = ErrorCodesMeta.YOUR_PASSWORD_IS_INCORRECT.message) => {
-		res.status(404).json({
+		res.status(200).json({
 			status: 404,
 			response: "Not Found",
 			message,
@@ -130,9 +130,9 @@ export const httpResponse = {
 		data = {},
 		message = ErrorCodesMeta.NOT_ALLOWED.message
 	) => {
-		res.status(405).json({
+		res.status(200).json({
 			status: 405,
-			response: "Method not allowed.",
+			response: "Genre Name already exists.",
 			message,
 			data,
 		});

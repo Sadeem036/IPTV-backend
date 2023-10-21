@@ -4,9 +4,15 @@ import { httpResponse } from "../utils/httpResponse.js"
 const fileController = {
 
     add: async (req, res) => {
+        console.log(req.file);
         try {
-            const data = await fileServices.add(req.body)
-            return httpResponse.CREATED(res, data)
+            if(req.file){
+                const data = await fileServices.add(req)
+                return httpResponse.CREATED(res, data)
+            }
+            else{
+                return httpResponse.NOT_FOUND(res)
+            }
         }
         catch (error) {
             return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)

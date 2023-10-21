@@ -9,7 +9,12 @@ const genreController = {
             return httpResponse.CREATED(res, data)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
+            if(error.message == "Genre already exist with this name"){
+                return httpResponse.NOT_ALLOWED(res)
+            }
+            else{
+                return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
+            }
         }
     },
 
@@ -46,10 +51,15 @@ const genreController = {
             if (data) {
                 return httpResponse.SUCCESS(res, data)
             }
-            return httpResponse.NOT_FOUND(res)
+            return httpResponse.NOT_ALLOWED(res)
         }
         catch (error) {
-            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
+            if(error.message == "Genre name already exists"){
+                return httpResponse.NOT_ALLOWED(res)
+            }
+            else {
+                return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
+            }
         }
     },
 
