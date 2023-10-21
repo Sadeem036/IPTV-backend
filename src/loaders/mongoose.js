@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-// import config from "../config/index.js";
+import config from "../config/index.js";
 
 export default async function mongooseLoader() {
 	const connection = mongoose.connection;
 	connection.once("connected", () => console.log("Database Connected ~"));
 	connection.on("error", (error) => console.log("Database Error: ", error));
 
-	mongoose.connect("mongodb://127.0.0.1:27017/iptv", {
+	mongoose.connect(config.env.mongodbUri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
