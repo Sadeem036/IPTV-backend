@@ -2,8 +2,16 @@ import fileModel from "../models/file.js";
 
 const fileServices = {
 
-    add: async (data) => {
-        return fileModel.create(data)
+    add: async (req) => {
+        req.file.path = req.file.path.replace(`\\`, `/`);
+        const file = {
+            original_name: req.file.originalname,
+            current_name: req.file.filename,
+            type: req.file.mimetype,
+            path: `${req.protocol}://${req.get("host")}/${req.file.path}`,
+            size: req.file.size,
+        };
+        return fileModel.create(file)
     },
 
     get: async (pageNumber, limit) => {

@@ -7,7 +7,18 @@ import genreModel from './../models/genre.js';
 export const genreServices = {
 
     add: async (data) => {
-        return genreModel.create(data)
+        try{
+            const genreExist = await genreModel.find({ name: data.name})
+            if( genreExist.length > 0){
+                throw new Error("Genre already exist with this name")
+            } 
+            else {
+                return await genreModel.create(data)
+            }
+        }
+        catch(error){
+            throw error
+        }
     },
 
     get: async (pageNumber, limit) => {
@@ -26,7 +37,18 @@ export const genreServices = {
     },
 
     updateOne: async (id, data) => {
-        return genreModel.findByIdAndUpdate(id, data, { new: true })
+        try{
+            const genre = await genreModel.find({ name: data.name})
+            if(genre.length > 0){
+                throw new Error("Genre name already exists")
+            }
+            else{
+                return genreModel.findByIdAndUpdate(id, data, { new: true })
+            }
+        }
+        catch (error) {
+            throw error
+        }
     },
 
     deleteOne: async (id) => {

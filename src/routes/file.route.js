@@ -3,10 +3,11 @@ import fileController from "../controllers/file.controller.js"
 import { validate } from "../middlewares/validate.js"
 import fileValidation from "../validations/file.validation.js"
 import { authenticate } from "../middlewares/authenticate.js"
+import upload from "../middlewares/upload.js"
 
 const fileRouter = express.Router()
 
-fileRouter.post("/",validate(fileValidation.add), authenticate, fileController.add)
+fileRouter.post("/", upload.single(), fileController.add)
 
 fileRouter.get("/", authenticate, fileController.getAll)
 
