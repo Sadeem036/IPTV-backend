@@ -23,7 +23,7 @@ export const userService = {
 
     get: async (pageNumber, limit) => {
         const skip = limit * pageNumber - limit
-        return userModel.find().limit(limit).skip(skip)
+        return await userModel.find().limit(limit).skip(skip)
     },
 
     login: async (data) => {
