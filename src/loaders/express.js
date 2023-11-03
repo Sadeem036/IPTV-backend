@@ -13,21 +13,23 @@ import genreSeriesRouter from "../routes/genre.series.route.js";
 // import { protectedRouter, unProtectedRouter } from "../routes/index.js";
 
 export default async function expressLoader({ app }) {
-	app.use(cors());
-	// app.use(helmet());
+  app.use(cors());
+  // app.use(helmet());
 
-	app.use(express.json());
-	app.use(express.urlencoded());
-	app.use("/public", express.static("public"))
+  app.use(express.json());
+  app.use(express.urlencoded());
+  app.use("/public", express.static("public"));
 
-	// app.use("/", unProtectedRouter);
-	// app.use("/", authenticate, protectedRouter);
-	app.use("/user", userRoute)
-	app.use("/genre", genreRouter)
-	app.use("/file", fileRouter)
-	app.use("/series", seriesRouter)
-	app.use("/season", seasonRouter)
-	app.use("/episode", episodeRouter)
-	app.use("/stream", streamRouter)
-	app.use("/genre-series", genreSeriesRouter)
+  app.get("/", (req, res) => res.json("Server Running"));
+
+  // app.use("/", unProtectedRouter);
+  // app.use("/", authenticate, protectedRouter);
+  app.use("/user", userRoute);
+  app.use("/genre", genreRouter);
+  app.use("/file", fileRouter);
+  app.use("/series", seriesRouter);
+  app.use("/season", seasonRouter);
+  app.use("/episode", episodeRouter);
+  app.use("/stream", streamRouter);
+  app.use("/genre-series", genreSeriesRouter);
 }
