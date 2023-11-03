@@ -66,7 +66,7 @@ export const httpResponse = {
 		data = {},
 		message = ErrorCodesMeta.BAD_REQUEST.message
 	) => {
-		res.status(400).json({
+		res.status(200).json({
 			status: 400,
 			response: "Bad Request",
 			message,
@@ -78,7 +78,7 @@ export const httpResponse = {
 		data = {},
 		message = ErrorCodesMeta.UNAUTHORIZED.message
 	) => {
-		res.status(401).json({
+		res.status(200).json({
 			status: 401,
 			response: "Unauthorized",
 			message,

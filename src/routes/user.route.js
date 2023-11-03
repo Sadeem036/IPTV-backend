@@ -10,9 +10,11 @@ userRoute.post("/register",validate(userValidation.register) ,userController.add
 
 userRoute.get("/", userController.get)
 
+userRoute.get("/user-data", authenticate, userController.userdata)
+
 userRoute.post("/login", validate(userValidation.login), userController.login)
 
-userRoute.get("/:id", validate(userValidation.id), userController.getOne)
+userRoute.get("/:id", authenticate, validate(userValidation.id), userController.getOne)
 
 userRoute.patch("/:id",validate(userValidation.update), authenticate, userController.updateOne)
 

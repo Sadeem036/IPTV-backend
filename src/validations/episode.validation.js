@@ -5,7 +5,7 @@ const episodeValidation = {
     add: {
         body: Joi.object().keys({
             season_id: Joi.string().required(),
-            name: Joi.string().required().min(2).max(20),
+            name: Joi.string().required().min(2).max(50),
             description: Joi.string().required(),
             thumbnail_id: Joi.string().required(),
         })
@@ -23,7 +23,7 @@ const episodeValidation = {
         }),
         body: Joi.object().keys({
             season_id: Joi.string(),
-            name: Joi.string().min(2).max(20),
+            name: Joi.string().min(2).max(50),
             description: Joi.string(),
             thumbnail_id: Joi.string(),
         })

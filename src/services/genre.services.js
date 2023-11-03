@@ -56,6 +56,49 @@ export const genreServices = {
     },
 
     getSeriesBygenreId: async (genre_id) => {
+        // return genreModel.aggregate([
+        //     {
+        //         $match: {
+        //             _id: new mongoose.Types.ObjectId(genre_id)
+        //         }
+        //     },
+        //     {
+        //         $lookup: {
+        //             from: "genreseries",
+        //             localField: "_id",
+        //             foreignField: "genre_id",
+        //             as: "Genre_Series"
+        //         }
+        //     },
+        //     {
+        //         $lookup: {
+        //             from: "series",
+        //             localField: "Genre_Series.series_id",
+        //             foreignField: "_id",
+        //             as: "Series"
+        //         }
+        //     },
+        //     {
+        //         $lookup: {
+        //             from: "files",
+        //             localField: "Series.thumbnail_id",
+        //             foreignField: "_id",
+        //             as: "Thumbnail"
+        //         }
+        //     },
+        //     {
+        //         $project: {
+        //             _id: 1,
+        //             name: 1,
+        //             description: 1,
+        //             trailer_id: 1,
+        //             thumbnail_id: "$Thumbnail",
+        //             createdAt: 1,
+        //             updatedAt: 1,
+        //             __v: 1
+        //         }
+        //     }
+        // ])
         return genreModel.aggregate([
             {
                 $match: {
@@ -77,9 +120,61 @@ export const genreServices = {
                     foreignField: "_id",
                     as: "Series"
                 }
+            },
+            {
+                $lookup: {
+                    from: "files",
+                    localField: "Series.thumbnail_id",
+                    foreignField: "_id",
+                    as: "Thumbnail"
+                }
+            },
+            {
+                $addFields: {
+                    "Series": {
+                        $map: {
+                            input: "$Series",
+                            as: "series",
+                            in: {
+                                $mergeObjects: [
+                                    "$$series",
+                                    {
+                                        thumbnail_id: {
+                                            $arrayElemAt: [
+                                                {
+                                                    $filter: {
+                                                        input: "$Thumbnail",
+                                                        as: "thumbnail",
+                                                        cond: {
+                                                            $eq: ["$$thumbnail._id", "$$series.thumbnail_id"]
+                                                        }
+                                                    }
+                                                },
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    description: 1,
+                    trailer_id: 1,
+                    createdAt: 1,
+                    updatedAt: 1,
+                    __v: 1,
+                    Genre_Series: 1,
+                    Series: 1
+                }
             }
-        ])
-        // return genreSeriesModel.find({ genre_id }).populate("genre_id").populate("series_id")
+        ]);
+        
     },
 
     getAllSeasonOfAllSeriesByGenreId: async (genre_id) => {

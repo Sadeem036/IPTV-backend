@@ -8,7 +8,7 @@ const genreSeriesServices = {
 
     get: async (pageNumber, limit) => {
         const skip = limit * pageNumber - limit
-        return genreSeriesModel.find().limit(limit).skip(skip)
+        return genreSeriesModel.find().limit(limit).skip(skip).populate("genre_id").populate("series_id")
     },
 
     getById: async (id) => {

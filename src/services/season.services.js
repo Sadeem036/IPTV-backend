@@ -6,12 +6,15 @@ import mongoose from "mongoose";
 const seasonServices = {
 
     add: async (data) => {
-        return seasonModel.create(data)
+        const season = await seasonModel.create(data)
+        if(season){
+            return await seasonModel.findById(season?._id).populate("series_id")
+        }
     },
 
     get: async (pageNumber, limit) => {
         const skip = limit * pageNumber - limit
-        return seasonModel.find().limit(limit).skip(skip)
+        return seasonModel.find().limit(limit).skip(skip).populate("series_id")
     },
 
     getById: async (id) => {
@@ -19,7 +22,7 @@ const seasonServices = {
     },
 
     updateOne: async (id, data) => {
-        return seasonModel.findByIdAndUpdate(id, data, { new: true })
+        return seasonModel.findByIdAndUpdate(id, data, { new: true }).populate("series_id") 
     },
 
     deleteOne: async (id) => {

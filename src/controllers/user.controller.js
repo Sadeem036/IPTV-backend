@@ -31,6 +31,17 @@ const userController = {
         }
     },
 
+    userdata: async (req, res) => {
+        try {
+            const { _id } = req.user
+            const data = await userService.userData(_id)
+            return httpResponse.SUCCESS(res, data)
+        }
+        catch (error) {
+            return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)
+        }
+    },
+
     login: async (req, res) => {
         try {
             const data = await userService.login(req.body)
