@@ -6,12 +6,15 @@ import seriesModel from "../models/series.js";
 const seriesServices = {
 
     add: async (data) => {
-        return seriesModel.create(data)
+        const series = await seriesModel.create(data)
+        if(series) {
+            return await seriesModel.findById(series?._id).populate("thumbnail_id")
+        }
     },
 
     get: async (pageNumber, limit) => {
         const skip = limit * pageNumber - limit
-        return seriesModel.find().limit(limit).skip(skip)
+        return seriesModel.find().limit(limit).skip(skip).populate("thumbnail_id")
     },
 
     getById: async (id) => {
@@ -19,7 +22,7 @@ const seriesServices = {
     },
 
     updateOne: async (id, data) => {
-        return seriesModel.findByIdAndUpdate(id, data, { new: true })
+        return seriesModel.findByIdAndUpdate(id, data, { new: true }).populate("thumbnail_id")
     },
 
     deleteOne: async (id) => {
@@ -27,7 +30,7 @@ const seriesServices = {
     },
 
     getAllSeasonBySeriesId: async (series_id) => {
-        return seasonModel.find({ series_id })
+        return seasonModel.find({ series_id }).populate("series_id")
     },
 
     // getAllEpissodeBySeriesId: async (series_id) => {

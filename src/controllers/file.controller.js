@@ -4,7 +4,7 @@ import { httpResponse } from "../utils/httpResponse.js"
 const fileController = {
 
     add: async (req, res) => {
-        console.log(req.file);
+        // console.log(req.file);
         try {
             if(req.file){
                 const data = await fileServices.add(req)
@@ -48,11 +48,13 @@ const fileController = {
 
     updateOne: async (req, res) => {
         try {
-            const data = await fileServices.updateOne(req.params.id, req.body)
-            if (data) {
-                return httpResponse.SUCCESS(res, data)
+            if(req.file){
+                const data = await fileServices.updateOne( req.params.id, req)
+                return httpResponse.CREATED(res, data)
             }
-            return httpResponse.NOT_FOUND(res)
+            else{
+                return httpResponse.NOT_FOUND(res)
+            }
         }
         catch (error) {
             return httpResponse.INTERNAL_SERVER_ERROR(res, error.message)

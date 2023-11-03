@@ -44,7 +44,7 @@ const seasonController = {
         try {
             const data = await seasonServices.updateOne(req.params.id, req.body)
             if (data) {
-                return httpResponse.SUCCESS(res, data)
+                return httpResponse.CREATED(res, data)
             }
             return httpResponse.NOT_FOUND(res)
         }

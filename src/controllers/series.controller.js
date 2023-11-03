@@ -45,7 +45,7 @@ const seriesController = {
         try {
             const data = await seriesServices.updateOne(req.params.id, req.body)
             if (data) {
-                return httpResponse.SUCCESS(res, data)
+                return httpResponse.CREATED(res, data)
             }
             return httpResponse.NOT_FOUND(res)
         }
