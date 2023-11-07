@@ -5,9 +5,9 @@ import config from "./config/index.js";
 
 async function startServer() {
   const app = express();
+  await loaders.init({ expressApp: app });
 
   const server = app.listen(config.env.port, async () => {
-    await loaders.init({ expressApp: app });
     console.log(`Server Started ~ :${config.env.port}`);
   });
 
