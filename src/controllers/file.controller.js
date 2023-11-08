@@ -61,12 +61,14 @@ const fileController = {
   deleteOne: async (req, res) => {
     try {
       const file = await fileServices.getById(req.params.id);
-      await cloudinary.uploader.destroy(file.path, (error) => {
-        if (error) throw new Error();
-      });
+      if (!file) throw new Error("file not found");
 
-      const data = await fileServices.deleteOne(req.params.id);
-      return httpResponse.SUCCESS(res, data);
+      const result = await cloudinary.uploader.destroy(file.cloudinary_id);
+
+      if (result.result === "ok") {
+        const data = await fileServices.deleteOne(req.params.id);
+        return httpResponse.SUCCESS(res, data);
+      } else throw new Error("file deletion failed");
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error.message);
     }

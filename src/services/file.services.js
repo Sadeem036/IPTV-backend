@@ -19,12 +19,14 @@ const fileServices = {
           return result;
         }
       );
+      console.log("uploaded file=", uploadedFile);
       const file = {
         original_name: req.file.originalname,
         current_name: req.file.filename,
         type: req.file.mimetype,
         path: uploadedFile.secure_url,
         size: req.file.size,
+        cloudinary_id: uploadedFile.public_id,
       };
       return await fileModel.create(file);
     } catch (error) {
