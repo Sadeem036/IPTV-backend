@@ -1,5 +1,6 @@
 import fileModel from "../models/file.js";
 import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
 const fileServices = {
   add: async (req) => {
@@ -12,6 +13,9 @@ const fileServices = {
             console.log(error);
             throw new Error(error);
           }
+          fs.unlink(req.file.path, (error) => {
+            if (error) throw new Error(error);
+          });
           return result;
         }
       );
@@ -24,7 +28,6 @@ const fileServices = {
       };
       return await fileModel.create(file);
     } catch (error) {
-      console.log(error.message);
       throw new Error(error);
     }
   },
