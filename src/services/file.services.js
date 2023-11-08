@@ -24,6 +24,7 @@ const fileServices = {
       };
       return await fileModel.create(file);
     } catch (error) {
+      console.log(error.message);
       throw new Error(error.message);
     }
   },
