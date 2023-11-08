@@ -1,0 +1,50 @@
+paths:
+  /user/register:
+    post:
+      summary: Register User
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: John
+                last_name:
+                  type: string
+                  example: Doe
+                email:
+                  type: string
+                  example: johndoe@gmail.com
+                password:
+                  type: string
+                  example: admin123
+      responses:
+        201:
+          description: Created
+
+  /user/login:
+    post:
+      summary: User Login
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: john@gmail.com
+                password:
+                  type: string
+                  example: admin123
+      responses:
+        200:
+          description: User Login Successfully

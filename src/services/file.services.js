@@ -9,8 +9,8 @@ const fileServices = {
       await cloudinary.uploader.upload(req.file.path, (error, result) => {
         if (error) {
           console.log(error);
+          throw new Error(error);
         }
-        console.log("RESULT", result);
         file = {
           original_name: req.file.originalname,
           current_name: req.file.filename,
