@@ -1,20 +1,36 @@
-import express from "express"
-import fileController from "../controllers/file.controller.js"
-import { validate } from "../middlewares/validate.js"
-import fileValidation from "../validations/file.validation.js"
-import { authenticate } from "../middlewares/authenticate.js"
-import upload from "../middlewares/upload.js"
+import express from "express";
+import fileController from "../controllers/file.controller.js";
+import { validate } from "../middlewares/validate.js";
+import fileValidation from "../validations/file.validation.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import upload from "../middlewares/upload.js";
 
-const fileRouter = express.Router()
+const fileRouter = express.Router();
 
-fileRouter.post("/", upload.single("file"), fileController.add)
+fileRouter.post("/", upload.single("file"), fileController.add);
 
-fileRouter.get("/", authenticate, fileController.getAll)
+fileRouter.get("/", fileController.getAll);
 
-fileRouter.get("/:id", validate(fileValidation.id), authenticate, fileController.getOne)
+fileRouter.get(
+  "/:id",
+  validate(fileValidation.id),
+  authenticate,
+  fileController.getOne
+);
 
-fileRouter.patch("/:id", validate(fileValidation.update), authenticate, upload.single("file") , fileController.updateOne)
+fileRouter.patch(
+  "/:id",
+  validate(fileValidation.update),
+  authenticate,
+  upload.single("file"),
+  fileController.updateOne
+);
 
-fileRouter.delete("/:id", validate(fileValidation.id), authenticate, fileController.deleteOne)
+fileRouter.delete(
+  "/:id",
+  validate(fileValidation.id),
+  authenticate,
+  fileController.deleteOne
+);
 
-export default fileRouter
+export default fileRouter;
