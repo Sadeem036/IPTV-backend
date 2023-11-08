@@ -1,5 +1,6 @@
 import fileServices from "../services/file.services.js";
 import { httpResponse } from "../utils/httpResponse.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const fileController = {
   add: async (req, res) => {
@@ -59,6 +60,11 @@ const fileController = {
 
   deleteOne: async (req, res) => {
     try {
+      const file = await fileServices.getById(req.params.id);
+      await cloudinary.uploader.destroy(file.path, (error) => {
+        if (error) throw new Error();
+      });
+
       const data = await fileServices.deleteOne(req.params.id);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
