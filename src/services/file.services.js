@@ -5,20 +5,23 @@ const fileServices = {
   add: async (req) => {
     try {
       req.file.path = req.file.path.replace(`\\`, `/`);
-      let file;
-      await cloudinary.uploader.upload(req.file.path, (error, result) => {
-        if (error) {
-          console.log(error);
-          throw new Error(error);
+      const uploadedFile = await cloudinary.uploader.upload(
+        req.file.path,
+        async (error, result) => {
+          if (error) {
+            console.log(error);
+            throw new Error(error);
+          }
+          return result;
         }
-        file = {
-          original_name: req.file.originalname,
-          current_name: req.file.filename,
-          type: req.file.mimetype,
-          path: result.secure_url,
-          size: req.file.size,
-        };
-      });
+      );
+      const file = {
+        original_name: req.file.originalname,
+        current_name: req.file.filename,
+        type: req.file.mimetype,
+        path: uploadedFile.secure_url,
+        size: req.file.size,
+      };
       return await fileModel.create(file);
     } catch (error) {
       throw new Error(error.message);

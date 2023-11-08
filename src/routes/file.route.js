@@ -29,7 +29,6 @@ fileRouter.patch(
 fileRouter.delete(
   "/:id",
   validate(fileValidation.id),
-  authenticate,
   fileController.deleteOne
 );
 
